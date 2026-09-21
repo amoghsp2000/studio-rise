@@ -1,0 +1,116 @@
+/* Breakpoints: 1100 (large tablet / small laptop), 900 (tablet, nav collapses),
+   640 (large phone), 400 (small phone). Tested from 320px to 1920px+. */
+
+@media (min-width: 1600px) {
+  :root { --container: 84rem; }
+}
+
+@media (max-width: 1100px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__title { max-width: 16ch; }
+  .trace { max-width: 44rem; }
+
+  .site-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .site-footer__brand { grid-column: 1 / -1; }
+
+  .layer:nth-child(n) { --inset: 0rem; }
+}
+
+@media (max-width: 899px) {
+  /* Mobile navigation */
+  .nav__toggle { display: grid; }
+
+  .js .nav__panel {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding: 1.5rem var(--gutter) 2rem;
+    background: var(--harbour);
+    border-top: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  .nav-open .nav__panel { display: flex; }
+  /* backdrop-filter would make the header the containing block of the fixed panel. */
+  .nav-open .site-header { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--harbour); }
+  .nav-open { overflow: hidden; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-open .nav__panel { animation: rise 0.25s var(--ease); }
+  }
+
+  .nav__list { flex-direction: column; gap: 0; }
+  .nav__link { padding: 1rem 0.25rem; border-bottom: 1px solid var(--line); border-radius: 0; font-size: 1.15rem; color: var(--fog); }
+  .nav__link[aria-current]::after { display: none; }
+  .nav__cta { min-height: 3.1rem; }
+
+  /* Without JS the menu stays hidden behind nothing: show the links inline instead. */
+  html:not(.js) .nav__toggle { display: none; }
+  html:not(.js) .nav__cta { display: none; }
+  html:not(.js) .nav__list { flex-direction: row; flex-wrap: wrap; }
+  html:not(.js) .nav__link { border: 0; padding: 0.5rem; font-size: 0.9rem; }
+
+  /* Sections */
+  .services__grid,
+  .principles__grid,
+  .about__grid,
+  .contact__grid,
+  .cs-hero,
+  .cs-content { grid-template-columns: 1fr; }
+
+  .services__head { position: static; }
+  .cs-aside { position: static; }
+
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
+  .step:nth-child(even) { padding-left: 1.75rem; border-left: 1px solid var(--paper-2); }
+
+  .project--featured .project__inner { flex-direction: column; }
+  .project--featured .project__media { flex: none; aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+
+  .layer { grid-template-columns: 1fr; gap: 0.9rem; }
+
+  .about__card { max-width: 28rem; }
+}
+
+@media (max-width: 640px) {
+  .principles__list { grid-template-columns: 1fr; }
+  .form__row { grid-template-columns: 1fr; }
+
+  .steps { grid-template-columns: 1fr; }
+  .step:nth-child(n) { padding: 1.5rem 0 1.75rem; border-left: 0; }
+
+  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+
+  .hero__actions .button,
+  .contact__actions .button { flex: 1 1 auto; }
+
+  .trace__line { grid-template-columns: 3.4rem minmax(0, 1fr) 0.8rem; row-gap: 0.1rem; }
+  .trace__comp { grid-column: 2; grid-row: 1; }
+  .trace__msg { grid-column: 2; grid-row: 2; }
+  .trace__state { grid-column: 3; grid-row: 1 / span 2; }
+  .trace__log { min-height: 0; }
+
+  /* Only the current stage is labelled on small screens; the others stay readable to screen readers. */
+  .track__step:not(.is-current) span {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .track__step.is-current span { white-space: nowrap; }
+
+  .section-head--row { flex-direction: column; align-items: start; }
+}
+
+@media (max-width: 400px) {
+  .brand__name { font-size: 1rem; }
+  .site-footer__grid { grid-template-columns: 1fr; }
+  .filter { padding-inline: 0.8rem; font-size: 0.85rem; }
+  .trace__tab { padding-inline: 0.6rem; font-size: 0.82rem; }
+}
+
+/* Print: readable, no chrome. */
+@media print {
+  .site-header, .trace__bar, .filters, .form, .contact__actions { display: none !important; }
+  body { background: #fff; color: #000; }
+}

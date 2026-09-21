@@ -1,0 +1,225 @@
+/* ─────────────────────────────────────────────────────────────
+   Design tokens
+   Palette: "harbour" navy base, "signal" amber for actions and
+   live states, "chart" blue for structure. Light "paper" sections
+   break up the dark page for the process and principles content.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --harbour: #0b1a2b;
+  --deck: #11253a;
+  --deck-2: #173049;
+  --line: rgba(141, 183, 224, 0.16);
+  --line-strong: rgba(141, 183, 224, 0.32);
+  --fog: #e6edf4;
+  --fog-2: #aebdcc;
+  --fog-3: #8397ab;
+  --signal: #ffb547;
+  --signal-ink: #5a3a00;
+  --chart: #8db7e0;
+  --paper: #eef2f6;
+  --paper-2: #e1e8ef;
+  --ink: #0b1a2b;
+  --ink-2: #3d5166;
+  --ok: #7fd1a8;
+
+  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.3rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.7vw, 1.7rem);
+  --step-3: clamp(1.9rem, 1.45rem + 2vw, 3rem);
+  --step-4: clamp(2.5rem, 1.6rem + 4.2vw, 4.9rem);
+
+  --space-section: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --container: 76rem;
+  --gutter: clamp(1.1rem, 0.6rem + 2.4vw, 2.5rem);
+  --header-h: 4.25rem;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  color-scheme: dark;
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  min-height: 100vh;
+  background: var(--harbour);
+  color: var(--fog);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, picture, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+ul[class], ol[class] { list-style: none; padding: 0; }
+a { color: inherit; }
+p, li, dd, h1, h2, h3 { overflow-wrap: break-word; }
+[hidden] { display: none !important; }
+
+/* ── Typography ─────────────────────────────────────────────── */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+/* ── Layout helpers ─────────────────────────────────────────── */
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.section { padding-block: var(--space-section); }
+
+.section--light {
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light;
+}
+
+.section-head { max-width: 40rem; margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+.section-head--row { max-width: none; display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+.section-head--row > div { max-width: 44rem; }
+
+.section-title { font-size: var(--step-3); }
+
+.section-lead {
+  margin-top: 1rem;
+  color: var(--fog-2);
+  font-size: var(--step-1);
+  line-height: 1.55;
+  max-width: 38rem;
+}
+
+.section--light .section-lead { color: var(--ink-2); }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Focus & skip link ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.section--light :focus-visible { outline-color: var(--ink); }
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.7rem 1rem;
+  background: var(--signal);
+  color: var(--harbour);
+  font-weight: 600;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ── Buttons & links ────────────────────────────────────────── */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.975rem;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.18s var(--ease);
+}
+
+.button--lg { min-height: 3.1rem; padding: 0.8rem 1.4rem; font-size: 1rem; }
+
+.button--primary { background: var(--signal); color: var(--harbour); }
+.button--primary:hover { background: #ffc56e; }
+.button--primary:active { transform: translateY(1px); }
+
+.button--ghost { border-color: var(--line-strong); color: var(--fog); background: transparent; }
+.button--ghost:hover { border-color: var(--chart); background: rgba(141, 183, 224, 0.08); }
+
+.button:disabled { opacity: 0.6; cursor: progress; }
+
+.text-link {
+  color: var(--signal);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+.text-link:hover { text-decoration-thickness: 2px; }
+.section--light .text-link { color: var(--ink); }
+
+.icon { flex: none; }
+
+/* ── Tags ───────────────────────────────────────────────────── */
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.tag {
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--fog-2);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
