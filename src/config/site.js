@@ -35,7 +35,7 @@ export const siteConfig = {
    * Vite's base path, canonical URLs, the sitemap and every internal
    * link are derived from this value automatically.
    */
-  url: 'https://amoghsp2000.githuh.io/studio-rise',
+  url: 'https://amoghsp2000.github.io/studio-rise/',
 
   /** Public contact email (mailto links + contact form fallback). */
   email: 'amoghpuranikmath22@gmail.com',
