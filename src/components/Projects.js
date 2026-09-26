@@ -65,13 +65,14 @@ function card(p, index) {
 
 export function Projects() {
   const list = sortedProjects();
-  const usedCats = new Set(list.flatMap((p) => p.categories || []));
+  const count = (key) => (key === 'all' ? list.length : list.filter((p) => (p.categories || []).includes(key)).length);
   const filters = projectCategories
-    .map(
-      (c) => `<button type="button" class="filter" data-filter="${attr(c.key)}" aria-pressed="${c.key === 'all'}"${
-        c.key !== 'all' && !usedCats.has(c.key) ? ' data-empty="true"' : ''
-      }>${esc(c.label)}</button>`
-    )
+    .map((c) => {
+      const n = count(c.key);
+      return `<button type="button" class="filter" data-filter="${attr(c.key)}" data-label="${attr(c.label)}" aria-pressed="${c.key === 'all'}"${
+        n === 0 ? ' data-empty="true"' : ''
+      }>${esc(c.label)} <span class="filter__count" aria-hidden="true">${n}</span></button>`;
+    })
     .join('');
 
   return `

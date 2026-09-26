@@ -6,10 +6,11 @@
  */
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { siteConfig } from '../src/config/site.js';
 import { basePath } from '../src/lib/paths.js';
 
-const dist = new URL('../dist/', import.meta.url).pathname;
+const dist = fileURLToPath(new URL('../dist/', import.meta.url));
 const problems = [];
 const fail = (msg) => problems.push(msg);
 

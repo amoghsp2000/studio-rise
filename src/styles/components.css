@@ -366,6 +366,7 @@
 .filter:hover { color: var(--fog); border-color: var(--chart); }
 .filter[aria-pressed='true'] { background: var(--fog); border-color: var(--fog); color: var(--harbour); }
 .filter[data-empty='true'][aria-pressed='false'] { color: var(--fog-3); }
+.filter__count { margin-left: 0.3rem; font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.7; }
 
 .projects {
   display: grid;

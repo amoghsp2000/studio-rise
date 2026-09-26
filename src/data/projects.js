@@ -28,14 +28,23 @@
  * caseStudy    Optional. { problem, solution, architecture, challenges[], technologies[], results }
  */
 
+/**
+ * Filter categories, one per kind of work (mirrors src/data/services.js).
+ * Every category is always shown as a filter, even with no projects yet;
+ * empty ones are dimmed and show the "No projects in this category" note.
+ * Add a new kind of work by adding an entry here, then tag projects with its key.
+ */
 export const projectCategories = [
   { key: 'all', label: 'All' },
   { key: 'web', label: 'Web Applications' },
   { key: 'backend', label: 'Backend Systems' },
-  { key: 'ai', label: 'AI & Automation' },
-  { key: 'saas', label: 'SaaS' },
-  { key: 'api', label: 'API Integrations' },
-  { key: 'tools', label: 'Tools' },
+  { key: 'api', label: 'API Development & Integration' },
+  { key: 'automation', label: 'Business Automation' },
+  { key: 'ai', label: 'AI Integration' },
+  { key: 'saas', label: 'SaaS Products' },
+  { key: 'integration', label: 'System Integration' },
+  { key: 'modernization', label: 'Legacy Modernization' },
+  { key: 'tools', label: 'Developer Tools' },
 ];
 
 /** Order used by the status track in "Currently building". */
@@ -105,7 +114,7 @@ export const projects = [
     slug: 'ai-efficiency',
     summary:
       'A SaaS layer that analyses how a team uses AI, recommends the right model for each task and routes requests through a gateway with usage tracking.',
-    categories: ['saas', 'ai', 'web'],
+    categories: ['saas', 'ai', 'web', 'api'],
     technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
     status: 'Beta',
     year: '2026',

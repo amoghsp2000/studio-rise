@@ -136,7 +136,7 @@ function initFilters() {
     });
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === key)));
     if (empty) empty.hidden = shown > 0;
-    const label = buttons.find((b) => b.dataset.filter === key)?.textContent.trim();
+    const label = buttons.find((b) => b.dataset.filter === key)?.dataset.label;
     if (status) status.textContent = `${shown} project${shown === 1 ? '' : 's'} shown${key === 'all' ? '' : ` in ${label}`}.`;
   };
 
